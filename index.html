@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Management System for BCA-Inn Hotel</title>
+    <script src="https://kit.fontawesome.com/4cab42481f.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 20px auto;
+            display: flex;
+            gap: 20px; /* Space between columns */
+        }
+
+        .header {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 20px;
+            width: 100%; /* Center header across full width */
+        }
+
+        .input-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .input-container input {
+            width: 70%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .input-container select {
+            width: 15%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .input-container button {
+            width: 15%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+        }
+
+        li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        li:nth-child(odd) {
+            background-color: #f9f9f9;
+        }
+
+        li.high {
+            background-color: #ffcccc; /* Light red for high priority */
+        }
+
+        li.medium {
+            background-color: #ffe5b4; /* Light orange for medium priority */
+        }
+
+        li.low {
+            background-color: #d4edda; /* Light green for low priority */
+        }
+
+        li .delete {
+            color: red;
+            cursor: pointer;
+        }
+
+        .todo-container {
+            flex: 1; /* Left column for To-Do list */
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .news-container {
+            flex: 1; /* Right column for News */
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .news-header {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .news-item {
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .news-item img {
+            width: 100%; /* Set to 100% of the container */
+            max-height: 150px; /* Limit the height */
+            object-fit: cover; /* Maintain aspect ratio */
+        }
+
+        .news-item h3 {
+            font-size: 1.2rem;
+            margin: 10px;
+        }
+
+        .news-item p {
+            font-size: 0.9rem;
+            color: #555;
+            margin: 0 10px 10px 10px;
+        }
+
+        .key {
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .key div {
+            margin: 5px 0;
+        }
+
+        .key .high {
+            color: red;
+        }
+
+        .key .medium {
+            color: orange;
+        }
+
+        .key .low {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="header">Task Management System for BCA-Inn Hotel</h1>
+    </div>
+
+    <div class="container">
+        <div class="todo-container">
+            <div class="input-container">
+                <input type="text" placeholder="Add your task" id="input" />
+                <select id="priority">
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+                <button type="button" id="add-btn">ADD</button>
+            </div>
+            <div class="key">
+                <strong>Priority Key:</strong>
+                <div class="high">🔴 High Priority</div>
+                <div class="medium">🟠 Medium Priority</div>
+                <div class="low">🟢 Low Priority</div>
+            </div>
+            <ul id="task-list">
+                <li class="high">Room service cleanup <span class="delete"><i class="fas fa-trash"></i></span></li>
+                <li class="medium">Schedule staff meeting <span class="delete"><i class="fas fa-trash"></i></span></li>
+                <li class="low">Prepare welcome kits <span class="delete"><i class="fas fa-trash"></i></span></li>
+            </ul>
+        </div>
+
+        <div class="news-container">
+            <h2 class="news-header">Latest News</h2>
+            <div class="news-item">
+                <img src="https://via.placeholder.com/300x150?text=Hotel+News+1" alt="News Image 1">
+                <h3>Exciting Renovations Coming to BCA-Inn Hotel</h3>
+                <p>We are excited to announce that renovations will start next month, providing our guests with an enhanced experience.</p>
+            </div>
+            <div class="news-item">
+                <img src="https://via.placeholder.com/300x150?text=Hotel+News+2" alt="News Image 2">
+                <h3>Upcoming Events for October</h3>
+                <p>Join us for our customer appreciation night on October 25. Special discounts and events planned for all guests!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for task handling
+        const input = document.getElementById("input");
+        const addBtn = document.getElementById("add-btn");
+        const taskList = document.getElementById("task-list");
+        const prioritySelect = document.getElementById("priority");
+
+        addBtn.addEventListener("click", function () {
+            if (input.value.trim() !== "") {
+                const priority = prioritySelect.value;
+                const li = document.createElement("li");
+                li.classList.add(priority);
+                li.innerHTML = `${input.value} <span class="delete"><i class="fas fa-trash"></i></span>`;
+                taskList.appendChild(li);
+
+                // Delete task
+                li.querySelector(".delete").addEventListener("click", function () {
+                    taskList.removeChild(li);
+                });
+
+                input.value = ""; // Clear input
+                prioritySelect.value = "low"; // Reset to default
+            }
+        });
+    </script>
+</body>
+</html>
